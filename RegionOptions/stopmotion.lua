@@ -12,10 +12,10 @@ local function setTextureFunc(textureWidget, texturePath, textureName)
       if (data.rows and data.columns) then
         -- Texture Atlas
         textureWidget:SetTexture(texturePath, textureName);
-        
+
         setTile(textureWidget, data.count, data.rows, data.columns);
-        
-        textureWidget:SetOnUpdate(function() 
+
+        textureWidget:SetOnUpdate(function()
           textureWidget.frameNr = textureWidget.frameNr + 1;
           if (textureWidget.frameNr == data.count) then
             textureWidget.frameNr = 1;
@@ -27,8 +27,8 @@ local function setTextureFunc(textureWidget, texturePath, textureName)
         local texture = texturePath .. format("%03d", texture_data[texturePath].count)
         textureWidget:SetTexture(texture, textureName)
         textureWidget:SetTexCoord(0, 1, 0, 1);
-        
-        textureWidget:SetOnUpdate(function() 
+
+        textureWidget:SetOnUpdate(function()
           textureWidget.frameNr = textureWidget.frameNr + 1;
           if (textureWidget.frameNr == data.count) then
             textureWidget.frameNr = 1;
@@ -54,7 +54,7 @@ local function createOptions(id, data)
             type = "input",
             name = L["Background Texture"],
             order = 5,
-            disabled = function() return data.sameTexture; end,
+            disabled = function() return data.sameTexture or data.hideBackground  end,
             get = function() return data.sameTexture and data.foregroundTexture or data.backgroundTexture; end,
         },
         chooseForegroundTexture = {
@@ -69,7 +69,8 @@ local function createOptions(id, data)
             type = "toggle",
             name = L["Same"],
             width = "half",
-            order = 15
+            order = 15,
+            disabled = function() return data.hideBackground; end
         },
         chooseBackgroundTexture = {
             type = "execute",
@@ -79,7 +80,7 @@ local function createOptions(id, data)
             func = function()
                 WeakAuras.OpenTexturePick(data, "backgroundTexture", texture_types, setTextureFunc);
             end,
-            disabled = function() return data.sameTexture; end
+            disabled = function() return data.sameTexture or data.hideBackground; end
         },
         desaturateForeground = {
             type = "toggle",
@@ -90,6 +91,14 @@ local function createOptions(id, data)
             type = "toggle",
             name = L["Desaturate"],
             order = 17.6,
+            width = "half",
+            disabled = function() return data.hideBackground; end
+        },
+        hideBackground = {
+          type = "toggle",
+          name = L["Hide"],
+          order = 17.65,
+          width = "half",
         },
         -- Foreground options for custom textures
         customForegroundHeader = {
@@ -135,7 +144,8 @@ local function createOptions(id, data)
             type = "header",
             name = L["Custom Background"],
             order = 18.00,
-            hidden = function() return data.sameTexture or texture_data[data.backgroundTexture] end
+            hidden = function() return data.sameTexture or texture_data[data.backgroundTexture]
+                                       or data.hideBackground end
         },
         customBackgroundRows = {
             type = "range",
@@ -143,7 +153,8 @@ local function createOptions(id, data)
             min = 1,
             max = 64,
             order = 18.01,
-            hidden = function() return data.sameTexture or texture_data[data.backgroundTexture] end
+            hidden = function() return data.sameTexture or texture_data[data.backgroundTexture]
+                                       or data.hideBackground end
         },
         customBackgroundColumns = {
             type = "range",
@@ -151,23 +162,26 @@ local function createOptions(id, data)
             min = 1,
             max = 64,
             order = 18.02,
-            hidden = function() return data.sameTexture or texture_data[data.backgroundTexture] end
+            hidden = function() return data.sameTexture or texture_data[data.backgroundTexture]
+                                       or data.hideBackground end
         },
         customBackgroundFrames = {
             type = "range",
             name = L["Frame Count"],
             min = 0,
             max = 4096,
-            --bigStep = 0.01,
+            step = 1,
             order = 18.03,
-            hidden = function() return data.sameTexture or texture_data[data.backgroundTexture] end
+            hidden = function() return data.sameTexture or texture_data[data.backgroundTexture]
+                                       or data.hideBackground end
         },
         customBackgroundSpace = {
             type = "execute",
             name = "",
             order = 18.04,
             image = function() return "", 0, 0 end,
-            hidden = function() return data.sameTexture or texture_data[data.backgroundTexture] end
+            hidden = function() return data.sameTexture or texture_data[data.backgroundTexture]
+                                       or data.hideBackground end
         },
         blendMode = {
             type = "select",
@@ -215,7 +229,8 @@ local function createOptions(id, data)
             min = 0,
             max = 1,
             order = 25,
-            isPercent = true
+            isPercent = true,
+            disabled = function() return data.hideBackground; end
         },
         foregroundColor = {
             type = "color",
@@ -227,7 +242,8 @@ local function createOptions(id, data)
             type = "color",
             name = L["Background Color"],
             hasAlpha = true,
-            order = 32
+            order = 32,
+            disabled = function() return data.hideBackground; end
         },
         inverse = {
             type = "toggle",
@@ -277,7 +293,7 @@ local function modifyThumbnail(parent, region, data, fullModify, size)
     end
 
     local frame = 1;
-    
+
     local tdata = texture_data[data.foregroundTexture];
     if (tdata) then
       local lastFrame = tdata.count - 1;
@@ -292,34 +308,34 @@ local function modifyThumbnail(parent, region, data, fullModify, size)
       region.foregroundRows = data.customForegroundRows;
       region.foregroundColumns = data.customForegroundColumns;
     end
-    
+
     if (region.startFrame and region.endFrame) then
       frame = floor(region.startFrame + (region.endFrame - region.startFrame) * 0.75);
     end
-    
+
     local texture = data.foregroundTexture or "Interface\\AddOns\\WeakAurasStopMotion\\Textures\\Runes\\legionv";
-    
+
     if (region.foregroundRows and region.foregroundColumns) then
       region.texture:SetTexture(texture);
       setTile(region.texture, frame, region.foregroundRows, region.foregroundColumns);
-      
-      region.SetValue = function(self, percent) 
+
+      region.SetValue = function(self, percent)
         local frame = floor(percent * (region.endFrame - region.startFrame) + region.startFrame);
         setTile(self.texture, frame, region.foregroundRows, region.foregroundColumns);
       end
     else
       region.texture:SetTexture(texture .. format("%03d", frame));
       region.texture:SetTexCoord(0, 1, 0, 1);
-      
-      region.SetValue = function(self, percent) 
+
+      region.SetValue = function(self, percent)
         local frame = floor(percent * (region.endFrame - region.startFrame) + region.startFrame);
         self.texture:SetTexture((data.foregroundTexture) .. format("%03d", frame));
       end
     end
-    
+
     region.texture:SetVertexColor(data.foregroundColor[1], data.foregroundColor[2], data.foregroundColor[3], data.foregroundColor[4]);
     region.texture:SetBlendMode(data.blendMode);
-    
+
     region.elapsed = 0;
     region:SetScript("OnUpdate", function(self, elapsed)
         region.elapsed = region.elapsed + elapsed;
@@ -347,7 +363,7 @@ local function createIcon()
 
     local thumbnail = createThumbnail(UIParent);
     modifyThumbnail(UIParent, thumbnail, data, nil, 75);
-    
+
     thumbnail.elapsed = 0;
     thumbnail:SetScript("OnUpdate", function(self, elapsed)
         thumbnail.elapsed = thumbnail.elapsed + elapsed;

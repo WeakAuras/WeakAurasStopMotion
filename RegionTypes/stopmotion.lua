@@ -34,6 +34,7 @@ local default = {
     customBackgroundFrames = 0,
     customBackgroundRows = 16,
     customBackgroundColumns = 16,
+    hideBackground = true
 };
 
 local function create(parent)
@@ -56,23 +57,23 @@ local function create(parent)
 end
 
 local function SetTextureViaAtlas(self, texture)
-  self:SetTexture(texture); 
+  self:SetTexture(texture);
 end
 
 local function setTile(texture, frame, rows, columns )
   frame = frame - 1;
   local row = floor(frame / rows);
   local column = frame % columns;
-  
+
   local deltaX = 1 / rows;
   local deltaY = 1 / columns;
-  
+
   local left = deltaX * column;
   local right = left + deltaX;
-  
+
   local top = deltaY * row;
   local bottom = top + deltaY;
-  
+
   texture:SetTexCoord(left, right, top, bottom);
 end
 
@@ -97,7 +98,7 @@ local function modify(parent, region, data)
     else
         region:SetFrameStrata(WeakAuras.frame_strata_types[data.frameStrata]);
     end
-    
+
     -- Frames...
     local tdata = texture_data[data.foregroundTexture];
     if (tdata) then
@@ -113,11 +114,11 @@ local function modify(parent, region, data)
       region.foreground.rows = data.customForegroundRows;
       region.foreground.columns = data.customForegroundColumns;
     end
-    
+
     local backgroundTexture = data.sameTexture
                              and data.foregroundTexture
                              or data.backgroundTexture;
-                             
+
     local tbdata = texture_data[backgroundTexture];
     if (tbdata) then
       local lastFrame = tbdata.count - 1;
@@ -125,12 +126,15 @@ local function modify(parent, region, data)
       region.background.rows = tbdata.rows;
       region.background.columns = tbdata.columns;
     else
-      local lastFrame = (data.customBackgroundFrames or 256) - 1;
+      local lastFrame = (data.sameTexture and data.customForegroundFrames
+                                          or data.customBackgroundFrames or 256) - 1;
       region.backgroundFrame = floor( (data.backgroundPercent or 1) * lastFrame + 1);
-      region.background.rows = data.customBackgroundRows;
-      region.background.columns = data.customBackgroundColumns;
+      region.background.rows = data.sameTexture and data.customForegroundRows
+                                                 or data.customBackgroundRows;
+      region.background.columns = data.sameTexture and data.customForegroundColumns
+                                                   or data.customBackgroundColumns;
     end
-                             
+
     if (region.foreground.rows and region.foreground.columns) then
       region.foreground.SetBaseTexture = SetTextureViaAtlas;
       region.foreground.SetFrame = SetFrameViaAtlas;
@@ -138,7 +142,7 @@ local function modify(parent, region, data)
       region.foreground.SetBaseTexture = SetTextureViaFrames;
       region.foreground.SetFrame = SetFrameViaFrames;
     end
-    
+
     if (region.background.rows and region.background.columns) then
       region.background.SetBaseTexture = SetTextureViaAtlas;
       region.background.SetFrame = SetFrameViaAtlas;
@@ -146,13 +150,19 @@ local function modify(parent, region, data)
       region.background.SetBaseTexture = SetTextureViaFrames;
       region.background.SetFrame = SetFrameViaFrames;
     end
-    
-    
+
+
     region.background:SetBaseTexture(backgroundTexture);
     region.background:SetFrame(backgroundTexture, region.backgroundFrame or 1);
     region.background:SetDesaturated(data.desaturateBackground)
     region.background:SetVertexColor(data.backgroundColor[1], data.backgroundColor[2], data.backgroundColor[3], data.backgroundColor[4]);
     region.background:SetBlendMode(data.blendMode);
+
+    if (data.hideBackground) then
+      region.background:Hide();
+    else
+      region.background:Show();
+    end
 
     region.foreground:SetBaseTexture(data.foregroundTexture);
     region.foreground:SetFrame(data.foregroundTexture, 1);
@@ -163,14 +173,6 @@ local function modify(parent, region, data)
     region:SetHeight(data.height);
     region:ClearAllPoints();
     region:SetPoint(data.selfPoint, parent, data.anchorPoint, data.xOffset, data.yOffset);
-
-    local function GetRotatedPoints(degrees)
-        local angle = rad(135 - degrees);
-        local vx = math.cos(angle);
-        local vy = math.sin(angle);
-
-        return 0.5+vx,0.5-vy , 0.5-vy,0.5-vx , 0.5+vy,0.5+vx , 0.5-vx,0.5+vy
-    end
 
     function region:Scale(scalex, scaley)
         if(scalex < 0) then
@@ -187,8 +189,6 @@ local function modify(parent, region, data)
             region.mirror_v = nil;
         end
         region:SetHeight(data.height * scaley);
-
-        DoTexCoord();
     end
 
     function region:Color(r, g, b, a)
