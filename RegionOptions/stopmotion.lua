@@ -216,8 +216,8 @@ local function createOptions(id, data)
         frameRate = {
            type = "range",
            name = L["Frame Rate"],
-           min = 5,
-           max = 60,
+           min = 3,
+           max = 120,
            step = 1,
            bigStep = 3,
            order = 24,
