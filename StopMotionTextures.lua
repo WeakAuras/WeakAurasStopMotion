@@ -8,6 +8,7 @@ WeakAurasStopMotion.animation_types = {
   bounce = L["Forward, Reverse Loop"],
   once = L["Forward"],
   progress = L["Progress"]
+  
 };
 
 WeakAurasStopMotion.texture_types = {};

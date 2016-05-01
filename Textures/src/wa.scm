@@ -145,6 +145,39 @@
         (gimp-context-set-background oldbackground)
         (gimp-context-set-foreground oldforeground)
         (list newlayer newlayer2 newlayer3)))
+        
+(define (wa-spotlight-vertical-word img newlayer i total args)
+  (let* ((newlayer2 (car (gimp-layer-new-from-drawable newlayer img)))
+         (newlayer3 (car (gimp-layer-new-from-drawable newlayer img)))
+         (width (car (gimp-drawable-width newlayer)))
+         (height (car (gimp-drawable-height newlayer)))
+         (percent (/ i total))
+         (gradientheight (car args))
+         (gradientheight2 (cadr args))
+         (offset (caddr args))
+         (coveredheight (- height (* 2 offset)))
+         (y1 (+ offset (* percent coveredheight)))
+         (y2 (+ offset gradientheight (* percent coveredheight)))
+         (y3 (+ offset gradientheight2 (* percent coveredheight)))
+         (oldforeground (car (gimp-context-get-foreground)))
+         (oldbackground (car (gimp-context-get-background)))
+         )
+        (gimp-context-set-background '(0 0 0) )
+        (gimp-context-set-foreground '(255 255 255) )
+        (gimp-image-insert-layer img newlayer2 (car (gimp-item-get-parent newlayer)) -10)
+        (gimp-image-insert-layer img newlayer3 (car (gimp-item-get-parent newlayer)) -10)
+        (gimp-layer-set-mode newlayer3 16)
+        (let* ((mask (car (gimp-layer-create-mask newlayer3 0))))
+          (gimp-layer-add-mask newlayer3 mask)
+          (gimp-edit-blend newlayer3 0 0 1 100 0 0 0 1 5 4 1 0 y1 0 y2))
+        (let* ((mask (car (gimp-layer-create-mask newlayer2 0))))
+          (gimp-layer-add-mask newlayer2 mask)
+          (gimp-edit-blend mask 0 0 1 100 0 0 0 1 5 4 1 0 y1 0 y3))
+        (gimp-desaturate newlayer)
+        (gimp-layer-set-opacity newlayer 80)
+        (gimp-context-set-background oldbackground)
+        (gimp-context-set-foreground oldforeground)
+        (list newlayer newlayer2 newlayer3)))
 
 (define (wa-spotlight-horizontal img newlayer i total args)
   (let* ((newlayer2 (car (gimp-layer-new-from-drawable newlayer img)))
@@ -166,6 +199,30 @@
         (let* ((mask (car (gimp-layer-create-mask newlayer2 0))))
           (gimp-layer-add-mask newlayer2 mask)
           (gimp-edit-blend newlayer2 0 0 1 100 0 0 0 1 5 4 1 x1 0 x2 0))
+        (gimp-context-set-background oldbackground)
+        (gimp-context-set-foreground oldforeground)
+        (car (gimp-image-merge-down img newlayer2 0))))
+        
+(define (wa-spotlight-vertical img newlayer i total args)
+  (let* ((newlayer2 (car (gimp-layer-new-from-drawable newlayer img)))
+         (width (car (gimp-drawable-width newlayer)))
+         (height (car (gimp-drawable-height newlayer)))
+         (percent (/ i total))
+         (gradientheight (car args))
+         (offset (cadr args))
+         (coveredheight (- width (* 2 offset)))
+         (y1 (+ offset (* percent coveredheight)))
+         (y2 (+ offset gradientheight (* percent coveredheight)))
+         (oldforeground (car (gimp-context-get-foreground)))
+         (oldbackground (car (gimp-context-get-background)))
+         )
+        (gimp-context-set-background '(0 0 0) )
+        (gimp-context-set-foreground '(255 255 255) )
+        (gimp-image-insert-layer img newlayer2 (car (gimp-item-get-parent newlayer)) -10)
+        (gimp-layer-set-mode newlayer2 16)
+        (let* ((mask (car (gimp-layer-create-mask newlayer2 0))))
+          (gimp-layer-add-mask newlayer2 mask)
+          (gimp-edit-blend newlayer2 0 0 1 100 0 0 0 1 5 4 1 0 y1 0 y2))
         (gimp-context-set-background oldbackground)
         (gimp-context-set-foreground oldforeground)
         (car (gimp-image-merge-down img newlayer2 0))))
@@ -292,9 +349,15 @@
 
 (define (script-fu-wa-spotlight-horizontal img layer rows columns highlight-width offset)
    (script-fu-wa img layer rows columns wa-spotlight-horizontal (list highlight-width offset)))
+   
+(define (script-fu-wa-spotlight-vertical img layer rows columns highlight-width offset)
+   (script-fu-wa img layer rows columns wa-spotlight-vertical (list highlight-width offset)))
 
 (define (script-fu-wa-spotlight-horizontal-word img layer rows columns highlight-width colored-width offset)
    (script-fu-wa img layer rows columns wa-spotlight-horizontal-word (list highlight-width colored-width offset)))
+   
+(define (script-fu-wa-spotlight-vertical-word img layer rows columns highlight-width colored-width offset)
+   (script-fu-wa img layer rows columns wa-spotlight-vertical-word (list highlight-width colored-width offset)))
 
 (define (script-fu-wa-circle-mask img layer rows columns sangle eangle inverse rotate-center mx my)
    (script-fu-wa img layer rows columns wa-circle-mask (list sangle eangle inverse rotate-center mx my)))
@@ -375,6 +438,21 @@
                     SF-ADJUSTMENT "Highlight Width" (list 8 1 128 1 10 0 SF-SPINNER)
                     SF-ADJUSTMENT "Offset" (list 16 1 128 1 10 0 SF-SPINNER)
                     )
+                    
+(script-fu-register "script-fu-wa-spotlight-vertical"
+                    "Vertical Spotlight"
+                    ""
+                    "Infus <infus@squorn.de>"
+                    "Infus"
+                    "8.3.2016"
+                    ""
+                    SF-IMAGE "Image" 0
+                    SF-DRAWABLE "Drawable" 0
+                    SF-ADJUSTMENT "Rows" (list 16 1 128 1 10 0 SF-SPINNER)
+                    SF-ADJUSTMENT "Columns" (list 16 1 128 1 10 0 SF-SPINNER)
+                    SF-ADJUSTMENT "Highlight Width" (list 8 1 128 1 10 0 SF-SPINNER)
+                    SF-ADJUSTMENT "Offset" (list 16 1 128 1 10 0 SF-SPINNER)
+                    )
 
 (script-fu-register "script-fu-wa-spotlight-horizontal-word"
                     "Horizontal Spotlight Word"
@@ -391,6 +469,22 @@
                     SF-ADJUSTMENT "Colored Width" (list 32 1 128 1 10 0 SF-SPINNER)
                     SF-ADJUSTMENT "Offset" (list 4 1 128 1 10 0 SF-SPINNER)
                     )
+                    
+(script-fu-register "script-fu-wa-spotlight-vertical-word"
+                    "Vertical Spotlight Word"
+                    ""
+                    "Infus <infus@squorn.de>"
+                    "Infus"
+                    "8.3.2016"
+                    ""
+                    SF-IMAGE "Image" 0
+                    SF-DRAWABLE "Drawable" 0
+                    SF-ADJUSTMENT "Rows" (list 16 1 128 1 10 0 SF-SPINNER)
+                    SF-ADJUSTMENT "Columns" (list 16 1 128 1 10 0 SF-SPINNER)
+                    SF-ADJUSTMENT "Highlight Width" (list 32 0 128 1 10 0 SF-SPINNER)
+                    SF-ADJUSTMENT "Colored Width" (list 32 0 128 1 10 0 SF-SPINNER)
+                    SF-ADJUSTMENT "Offset" (list 4 -5 128 1 10 0 SF-SPINNER)
+                    )
 
 (script-fu-register "script-fu-wa-circle-mask"
                     "Circle Mask"
@@ -403,8 +497,8 @@
                     SF-DRAWABLE "Drawable" 0
                     SF-ADJUSTMENT "Rows" (list 16 1 128 1 10 0 SF-SPINNER)
                     SF-ADJUSTMENT "Columns" (list 16 1 128 1 10 0 SF-SPINNER)
-                    SF-ADJUSTMENT "Start Angle" (list 0 -360 720 1 15 0 SF-SPINNER)
-                    SF-ADJUSTMENT "End Angle" (list 360 -360 720 1 15 0 SF-SPINNER)
+                    SF-ADJUSTMENT "Start Angle" (list 0 -360 720 1 15 1 SF-SPINNER)
+                    SF-ADJUSTMENT "End Angle" (list 360 -360 720 1 15 1 SF-SPINNER)
                     SF-TOGGLE "Inverse" FALSE
                     SF-TOGGLE "Rotate around Center" TRUE
                     SF-ADJUSTMENT "Rotation Center X" (list 64 -1024 1024 1 10 0 SF-SPINNER)
@@ -469,7 +563,9 @@
 (script-fu-menu-register "script-fu-wa-blur-horizontal" "<Image>/WA")
 (script-fu-menu-register "script-fu-wa-blur-radial" "<Image>/WA")
 (script-fu-menu-register "script-fu-wa-spotlight-horizontal" "<Image>/WA")
+(script-fu-menu-register "script-fu-wa-spotlight-vertical" "<Image>/WA")
 (script-fu-menu-register "script-fu-wa-spotlight-horizontal-word" "<Image>/WA")
+(script-fu-menu-register "script-fu-wa-spotlight-vertical-word" "<Image>/WA")
 (script-fu-menu-register "script-fu-wa-circle-mask" "<Image>/WA")
 (script-fu-menu-register "script-fu-wa-spinning-orb" "<Image>/WA")
 (script-fu-menu-register "script-fu-wa-noop" "<Image>/WA")
