@@ -36,9 +36,6 @@ WeakAurasStopMotion.texture_types.Runes = {
     ["Interface\\AddOns\\WeakAurasStopMotion\\Textures\\Runes\\legionword"] = "Legion Word"
 }
 
-
-
-
 WeakAurasStopMotion.texture_data["Interface\\AddOns\\WeakAurasStopMotion\\Textures\\Basic\\checkmark"] = {
      ["count"] = 64,
      ["rows"] = 8,
@@ -92,4 +89,49 @@ WeakAurasStopMotion.texture_data["Interface\\AddOns\\WeakAurasStopMotion\\Textur
      ["count"] = 64,
      ["rows"] = 8,
      ["columns"] = 8
+  }
+  
+WeakAurasStopMotion.texture_types.Kaitan = {
+    ["Interface\\AddOns\\WeakAurasStopMotion\\Textures\\Kaitan\\CellRing"] = "CellRing",
+    ["Interface\\AddOns\\WeakAurasStopMotion\\Textures\\Kaitan\\Gadget"] = "Gadget",
+    ["Interface\\AddOns\\WeakAurasStopMotion\\Textures\\Kaitan\\Radar"] = "Radar",
+    ["Interface\\AddOns\\WeakAurasStopMotion\\Textures\\Kaitan\\RadarComplex"] = "RadarComplex",
+    ["Interface\\AddOns\\WeakAurasStopMotion\\Textures\\Kaitan\\Saber"] = "Saber",
+    ["Interface\\AddOns\\WeakAurasStopMotion\\Textures\\Kaitan\\Waveform"] = "Waveform",
+}
+
+WeakAurasStopMotion.texture_data["Interface\\AddOns\\WeakAurasStopMotion\\Textures\\Kaitan\\CellRing"] = {
+      ["count"] = 32,
+      ["rows"] = 8,
+      ["columns"] = 4
+  }
+  
+WeakAurasStopMotion.texture_data["Interface\\AddOns\\WeakAurasStopMotion\\Textures\\Kaitan\\Gadget"] = {
+     ["count"] = 32,
+     ["rows"] = 8,
+     ["columns"] = 4
+  }
+  
+WeakAurasStopMotion.texture_data["Interface\\AddOns\\WeakAurasStopMotion\\Textures\\Kaitan\\Radar"] = {
+     ["count"] = 32,
+     ["rows"] = 8,
+     ["columns"] = 4
+  }
+  
+WeakAurasStopMotion.texture_data["Interface\\AddOns\\WeakAurasStopMotion\\Textures\\Kaitan\\RadarComplex"] = {
+     ["count"] = 32,
+     ["rows"] = 8,
+     ["columns"] = 4
+  }
+  
+WeakAurasStopMotion.texture_data["Interface\\AddOns\\WeakAurasStopMotion\\Textures\\Kaitan\\Saber"] = {
+     ["count"] = 32,
+     ["rows"] = 8,
+     ["columns"] = 4
+  }
+  
+WeakAurasStopMotion.texture_data["Interface\\AddOns\\WeakAurasStopMotion\\Textures\\Kaitan\\Waveform"] = {
+     ["count"] = 32,
+     ["rows"] = 8,
+     ["columns"] = 4
   }

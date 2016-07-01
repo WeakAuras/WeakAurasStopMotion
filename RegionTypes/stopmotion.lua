@@ -62,11 +62,11 @@ end
 
 local function setTile(texture, frame, rows, columns )
   frame = frame - 1;
-  local row = floor(frame / rows);
+  local row = floor(frame / columns);
   local column = frame % columns;
 
-  local deltaX = 1 / rows;
-  local deltaY = 1 / columns;
+  local deltaX = 1 / columns;
+  local deltaY = 1 / rows;
 
   local left = deltaX * column;
   local right = left + deltaX;
