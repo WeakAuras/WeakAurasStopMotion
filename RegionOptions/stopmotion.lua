@@ -376,4 +376,27 @@ local function createIcon()
     return thumbnail;
 end
 
-WeakAuras.RegisterRegionOptions("stopmotion", createOptions, createIcon, L["Stop Motion"], createThumbnail, modifyThumbnail, L["Shows a stop motion textures"]);
+local templates = {
+  {
+    title = L["Left Progress Arc"],
+    data = {
+      xOffset = -90,
+      yOffset = -60,
+      height = 256,
+      foregroundTexture = "Interface\\AddOns\\WeakAurasStopMotion\\Textures\\Basic\\leftarc",
+      width = 256,
+    }
+  },
+  {
+    title = L["Right Progress Arc"],
+    data = {
+      xOffset = 90,
+      yOffset = -60,
+      height = 256,
+      foregroundTexture = "Interface\\AddOns\\WeakAurasStopMotion\\Textures\\Basic\\rightarc",
+      width = 256,
+    }
+  },
+}
+
+WeakAuras.RegisterRegionOptions("stopmotion", createOptions, createIcon, L["Stop Motion"], createThumbnail, modifyThumbnail, L["Shows a stop motion textures"], templates);
