@@ -19,6 +19,7 @@ local default = {
     rotate = true,
     selfPoint = "CENTER",
     anchorPoint = "CENTER",
+    anchorFrameType = "SCREEN",
     xOffset = 0,
     yOffset = 0,
     frameStrata = 1,
@@ -172,7 +173,9 @@ local function modify(parent, region, data)
     region:SetWidth(data.width);
     region:SetHeight(data.height);
     region:ClearAllPoints();
-    region:SetPoint(data.selfPoint, parent, data.anchorPoint, data.xOffset, data.yOffset);
+    local anchorFrame = WeakAuras.GetAnchorFrame and WeakAuras.GetAnchorFrame(data.anchorFrameType, parent, data.anchorFrameFrame) or parent;
+    region:SetParent(anchorFrame);
+    region:SetPoint(data.selfPoint, anchorFrame, data.anchorPoint, data.xOffset, data.yOffset);
 
     function region:Scale(scalex, scaley)
         if(scalex < 0) then
