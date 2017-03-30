@@ -1,4 +1,4 @@
-## Interface: 60200
+## Interface: 70200
 ## Title: WeakAuras Stop Motion Textures
 ## Author: Infus
 ## Version: 1.0.0

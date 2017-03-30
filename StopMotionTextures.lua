@@ -8,7 +8,7 @@ WeakAurasStopMotion.animation_types = {
   bounce = L["Forward, Reverse Loop"],
   once = L["Forward"],
   progress = L["Progress"]
-  
+
 };
 
 WeakAurasStopMotion.texture_types = {};
@@ -90,7 +90,7 @@ WeakAurasStopMotion.texture_data["Interface\\AddOns\\WeakAurasStopMotion\\Textur
      ["rows"] = 8,
      ["columns"] = 8
   }
-  
+
 WeakAurasStopMotion.texture_types.Kaitan = {
     ["Interface\\AddOns\\WeakAurasStopMotion\\Textures\\Kaitan\\CellRing"] = "CellRing",
     ["Interface\\AddOns\\WeakAurasStopMotion\\Textures\\Kaitan\\Gadget"] = "Gadget",
@@ -105,31 +105,31 @@ WeakAurasStopMotion.texture_data["Interface\\AddOns\\WeakAurasStopMotion\\Textur
       ["rows"] = 8,
       ["columns"] = 4
   }
-  
+
 WeakAurasStopMotion.texture_data["Interface\\AddOns\\WeakAurasStopMotion\\Textures\\Kaitan\\Gadget"] = {
      ["count"] = 32,
      ["rows"] = 8,
      ["columns"] = 4
   }
-  
+
 WeakAurasStopMotion.texture_data["Interface\\AddOns\\WeakAurasStopMotion\\Textures\\Kaitan\\Radar"] = {
      ["count"] = 32,
      ["rows"] = 8,
      ["columns"] = 4
   }
-  
+
 WeakAurasStopMotion.texture_data["Interface\\AddOns\\WeakAurasStopMotion\\Textures\\Kaitan\\RadarComplex"] = {
      ["count"] = 32,
      ["rows"] = 8,
      ["columns"] = 4
   }
-  
+
 WeakAurasStopMotion.texture_data["Interface\\AddOns\\WeakAurasStopMotion\\Textures\\Kaitan\\Saber"] = {
      ["count"] = 32,
      ["rows"] = 8,
      ["columns"] = 4
   }
-  
+
 WeakAurasStopMotion.texture_data["Interface\\AddOns\\WeakAurasStopMotion\\Textures\\Kaitan\\Waveform"] = {
      ["count"] = 32,
      ["rows"] = 8,

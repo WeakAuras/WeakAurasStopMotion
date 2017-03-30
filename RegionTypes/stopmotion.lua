@@ -1,6 +1,7 @@
 local texture_types = WeakAurasStopMotion.texture_types;
 local texture_data = WeakAurasStopMotion.texture_data;
 local animation_types = WeakAurasStopMotion.animation_types;
+local L = WeakAuras.L;
 
 local default = {
     foregroundTexture = "Interface\\AddOns\\WeakAurasStopMotion\\Textures\\Runes\\legionv",
@@ -37,6 +38,39 @@ local default = {
     customBackgroundColumns = 16,
     hideBackground = true
 };
+
+local properties = {
+  desaturateForeground = {
+    display = L["Desaturate Foreground"],
+    setter = "SetForegroundDesaturated",
+    type = "bool",
+  },
+  desaturateBackground = {
+    display = L["Desaturate Background"],
+    setter = "SetBackgroundDesaturated",
+    type = "bool",
+  },
+  foregroundColor = {
+    display = L["Foreground Color"],
+    setter = "Color",
+    type = "color"
+  },
+  backgroundColor = {
+    display = L["Background Color"],
+    setter = "SetBackgroundColor",
+    type = "color"
+  },
+  width = {
+    display = L["Width"],
+    setter = "SetRegionWidth",
+    type = "number"
+  },
+  height = {
+    display = L["Height"],
+    setter = "SetRegionHeight",
+    type = "number"
+  },
+}
 
 local function create(parent)
     local frame = CreateFrame("FRAME", nil, UIParent);
@@ -94,12 +128,6 @@ local function SetFrameViaFrames(self, texture, frame)
 end
 
 local function modify(parent, region, data)
-    if(data.frameStrata == 1) then
-        region:SetFrameStrata(region:GetParent():GetFrameStrata());
-    else
-        region:SetFrameStrata(WeakAuras.frame_strata_types[data.frameStrata]);
-    end
-
     -- Frames...
     local tdata = texture_data[data.foregroundTexture];
     if (tdata) then
@@ -172,26 +200,30 @@ local function modify(parent, region, data)
 
     region:SetWidth(data.width);
     region:SetHeight(data.height);
+    region.width = data.width;
+    region.height = data.height;
+    region.scalex = 1;
+    region.scaley = 1;
     region:ClearAllPoints();
-    local anchorFrame = WeakAuras.GetAnchorFrame and WeakAuras.GetAnchorFrame(data.anchorFrameType, parent, data.anchorFrameFrame) or parent;
-    region:SetParent(anchorFrame);
-    region:SetPoint(data.selfPoint, anchorFrame, data.anchorPoint, data.xOffset, data.yOffset);
+    WeakAuras.AnchorFrame(data, region, parent);
 
     function region:Scale(scalex, scaley)
+        region.scalex = scalex;
+        region.scaley = scaley;
         if(scalex < 0) then
             region.mirror_h = true;
             scalex = scalex * -1;
         else
             region.mirror_h = nil;
         end
-        region:SetWidth(data.width * scalex);
+        region:SetWidth(region.width * scalex);
         if(scaley < 0) then
             scaley = scaley * -1;
             region.mirror_v = true;
         else
             region.mirror_v = nil;
         end
-        region:SetHeight(data.height * scaley);
+        region:SetHeight(region.height * scaley);
     end
 
     function region:Color(r, g, b, a)
@@ -311,6 +343,28 @@ local function modify(parent, region, data)
             onUpdate();
         end
     end
+
+    function region:SetForegroundDesaturated(b)
+      region.foreground:SetDesaturated(b);
+    end
+
+    function region:SetBackgroundDesaturated(b)
+      region.background:SetDesaturated(b);
+    end
+
+    function region:SetBackgroundColor(r, g, b, a)
+      region.background:SetVertexColor(r, g, b, a);
+    end
+
+    function region:SetRegionWidth(width)
+      region.width = width;
+      region:Scale(region.scalex, region.scaley);
+    end
+
+    function region:SetRegionHeight(height)
+      region.height = height;
+      region:Scale(region.scalex, region.scaley);
+    end
 end
 
-WeakAuras.RegisterRegionType("stopmotion", create, modify, default);
+WeakAuras.RegisterRegionType("stopmotion", create, modify, default, properties);
