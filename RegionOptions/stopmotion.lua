@@ -62,7 +62,7 @@ local function createOptions(id, data)
             name = L["Choose"],
             order = 12,
             func = function()
-                WeakAuras.OpenTexturePick(data, "foregroundTexture", texture_types, setTextureFunc);
+                WeakAuras.OpenTexturePicker(data, "foregroundTexture", texture_types, setTextureFunc);
             end
         },
         sameTexture = {
