@@ -39,6 +39,8 @@ local default = {
     hideBackground = true
 };
 
+local screenWidth, screenHeight = math.ceil(GetScreenWidth() / 20) * 20, math.ceil(GetScreenHeight() / 20) * 20;
+
 local properties = {
   desaturateForeground = {
     display = L["Desaturate Foreground"],
@@ -63,14 +65,22 @@ local properties = {
   width = {
     display = L["Width"],
     setter = "SetRegionWidth",
-    type = "number"
+    type = "number",
+    min = 1,
+    softMax = screenWidth,
+    bigStep = 1,
   },
   height = {
     display = L["Height"],
     setter = "SetRegionHeight",
-    type = "number"
+    type = "number",
+    min = 1,
+    softMax = screenHeight,
+    bigStep = 1
   },
 }
+
+WeakAuras.regionPrototype.AddProperties(properties);
 
 local function create(parent)
     local frame = CreateFrame("FRAME", nil, UIParent);
@@ -88,6 +98,9 @@ local function create(parent)
 
     frame.duration = 0;
     frame.expirationTime = math.huge;
+
+    WeakAuras.regionPrototype.create(frame);
+
     return frame;
 end
 
