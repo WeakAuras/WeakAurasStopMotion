@@ -141,7 +141,8 @@ local function SetFrameViaFrames(self, texture, frame)
 end
 
 local function modify(parent, region, data)
-    -- Frames...
+    WeakAuras.regionPrototype.modify(parent, region, data);
+
     local tdata = texture_data[data.foregroundTexture];
     if (tdata) then
       local lastFrame = tdata.count - 1;
@@ -217,8 +218,6 @@ local function modify(parent, region, data)
     region.height = data.height;
     region.scalex = 1;
     region.scaley = 1;
-    region:ClearAllPoints();
-    WeakAuras.AnchorFrame(data, region, parent);
 
     function region:Scale(scalex, scaley)
         region.scalex = scalex;
