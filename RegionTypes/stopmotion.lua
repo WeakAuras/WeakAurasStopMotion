@@ -313,7 +313,7 @@ local function modify(parent, region, data)
           frame = floor((frames - 1) * progress / duration) + startFrame;
         else
           local remaining = region.expirationTime - GetTime();
-          local progress = 1 - (remaining / region.duration);
+          local progress = region.duration > 0 and (1 - (remaining / region.duration)) or 0;
           frame = floor( (frames - 1) * progress) + startFrame;
         end
       end
