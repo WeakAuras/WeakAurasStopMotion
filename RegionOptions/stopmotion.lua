@@ -48,7 +48,7 @@ local function createOptions(id, data)
         foregroundTexture = {
             type = "input",
             name = L["Texture"],
-            order = 0,
+            order = 1,
         },
         backgroundTexture = {
             type = "input",
@@ -257,6 +257,15 @@ local function createOptions(id, data)
             image = function() return "", 0, 0 end,
         },
     };
+
+    if (WeakAuras.PositionOptions) then
+      return {
+        stopmotion = options,
+        position = WeakAuras.PositionOptions(id, data),
+      };
+    end
+
+    -- Legacy code for Versions prior to April 2018
     options = WeakAuras.AddPositionOptions(options, id, data);
 
     return options;

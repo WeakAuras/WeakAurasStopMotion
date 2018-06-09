@@ -264,10 +264,14 @@ local function modify(parent, region, data)
 
     local function onUpdate()
       if (not region.startTime) then return end
+      WeakAuras.StartProfileAura(region.id);
+      WeakAuras.StartProfileSystem("stopmotion")
       local timeSinceStart = (GetTime() - region.startTime);
       local newCurrentFrame = floor(timeSinceStart * (data.frameRate or 15));
       if (newCurrentFrame == region.currentFrame) then
-          return;
+        WeakAuras.StopProfileAura(region.id);
+        WeakAuras.StopProfileSystem("stopmotion")
+        return;
       end
 
       region.currentFrame = newCurrentFrame;
@@ -325,6 +329,9 @@ local function modify(parent, region, data)
         frame = startFrame
       end
       region.foreground:SetFrame(data.foregroundTexture, frame);
+
+      WeakAuras.StopProfileAura(region.id);
+      WeakAuras.StopProfileSystem("stopmotion")
     end;
     region:SetScript("OnUpdate", onUpdate);
 
