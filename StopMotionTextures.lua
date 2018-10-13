@@ -18,6 +18,7 @@ WeakAurasStopMotion.texture_types.Basic = {
     ["Interface\\AddOns\\WeakAurasStopMotion\\Textures\\Basic\\redx"] = "Red X",
     ["Interface\\AddOns\\WeakAurasStopMotion\\Textures\\Basic\\leftarc"] = "Left Arc",
     ["Interface\\AddOns\\WeakAurasStopMotion\\Textures\\Basic\\rightarc"] = "Right Arc",
+    ["Interface\\AddOns\\WeakAurasStopMotion\\Textures\\Basic\\fireball"] = "Fireball",
 }
 
 WeakAurasStopMotion.texture_data = {
@@ -58,6 +59,12 @@ WeakAurasStopMotion.texture_data["Interface\\AddOns\\WeakAurasStopMotion\\Textur
      ["count"] = 256,
      ["rows"] = 16,
      ["columns"] = 16
+  }
+
+WeakAurasStopMotion.texture_data["Interface\\AddOns\\WeakAurasStopMotion\\Textures\\Basic\\fireball"] = {
+     ["count"] = 7,
+     ["rows"] = 5,
+     ["columns"] = 5
   }
 
 
