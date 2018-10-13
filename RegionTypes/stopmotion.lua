@@ -80,7 +80,7 @@ local properties = {
   },
 }
 
-WeakAuras.regionPrototype.AddProperties(properties);
+WeakAuras.regionPrototype.AddProperties(properties, default);
 
 local function create(parent)
     local frame = CreateFrame("FRAME", nil, UIParent);
