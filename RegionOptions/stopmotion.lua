@@ -47,11 +47,13 @@ local function createOptions(id, data)
     local options = {
         foregroundTexture = {
             type = "input",
+            width = WeakAuras.normalWidth,
             name = L["Texture"],
             order = 1,
         },
         backgroundTexture = {
             type = "input",
+            width = WeakAuras.normalWidth,
             name = L["Background Texture"],
             order = 5,
             disabled = function() return data.sameTexture or data.hideBackground  end,
@@ -59,6 +61,7 @@ local function createOptions(id, data)
         },
         chooseForegroundTexture = {
             type = "execute",
+            width = WeakAuras.normalWidth,
             name = L["Choose"],
             order = 12,
             func = function()
@@ -67,15 +70,15 @@ local function createOptions(id, data)
         },
         sameTexture = {
             type = "toggle",
+            width = WeakAuras.halfWidth,
             name = L["Same"],
-            width = "half",
             order = 15,
             disabled = function() return data.hideBackground; end
         },
         chooseBackgroundTexture = {
             type = "execute",
+            width = WeakAuras.halfWidth,
             name = L["Choose"],
-            width = "half",
             order = 17,
             func = function()
                 WeakAuras.OpenTexturePick(data, "backgroundTexture", texture_types, setTextureFunc);
@@ -84,6 +87,7 @@ local function createOptions(id, data)
         },
         desaturateForeground = {
             type = "toggle",
+            width = WeakAuras.normalWidth,
             name = L["Desaturate"],
             order = 17.5,
         },
@@ -91,14 +95,14 @@ local function createOptions(id, data)
             type = "toggle",
             name = L["Desaturate"],
             order = 17.6,
-            width = "half",
+            width = WeakAuras.halfWidth,
             disabled = function() return data.hideBackground; end
         },
         hideBackground = {
           type = "toggle",
           name = L["Hide"],
           order = 17.65,
-          width = "half",
+          width = WeakAuras.halfWidth,
         },
         -- Foreground options for custom textures
         customForegroundHeader = {
@@ -109,6 +113,7 @@ local function createOptions(id, data)
         },
         customForegroundRows = {
             type = "range",
+            width = WeakAuras.normalWidth,
             name = L["Rows"],
             min = 1,
             max = 64,
@@ -117,6 +122,7 @@ local function createOptions(id, data)
         },
         customForegroundColumns = {
             type = "range",
+            width = WeakAuras.normalWidth,
             name = L["Columns"],
             min = 1,
             max = 64,
@@ -125,6 +131,7 @@ local function createOptions(id, data)
         },
         customForegroundFrames = {
             type = "range",
+            width = WeakAuras.normalWidth,
             name = L["Frame Count"],
             min = 0,
             max = 4096,
@@ -134,6 +141,7 @@ local function createOptions(id, data)
         },
         customForegroundSpace = {
             type = "execute",
+            width = WeakAuras.normalWidth,
             name = "",
             order = 17.74,
             image = function() return "", 0, 0 end,
@@ -149,6 +157,7 @@ local function createOptions(id, data)
         },
         customBackgroundRows = {
             type = "range",
+            width = WeakAuras.normalWidth,
             name = L["Rows"],
             min = 1,
             max = 64,
@@ -158,6 +167,7 @@ local function createOptions(id, data)
         },
         customBackgroundColumns = {
             type = "range",
+            width = WeakAuras.normalWidth,
             name = L["Columns"],
             min = 1,
             max = 64,
@@ -167,6 +177,7 @@ local function createOptions(id, data)
         },
         customBackgroundFrames = {
             type = "range",
+            width = WeakAuras.normalWidth,
             name = L["Frame Count"],
             min = 0,
             max = 4096,
@@ -177,6 +188,7 @@ local function createOptions(id, data)
         },
         customBackgroundSpace = {
             type = "execute",
+            width = WeakAuras.normalWidth,
             name = "",
             order = 18.04,
             image = function() return "", 0, 0 end,
@@ -185,18 +197,21 @@ local function createOptions(id, data)
         },
         blendMode = {
             type = "select",
+            width = WeakAuras.normalWidth,
             name = L["Blend Mode"],
             order = 20,
             values = WeakAuras.blend_types
         },
         animationType = {
             type = "select",
+            width = WeakAuras.normalWidth,
             name = L["Animation Mode"],
             order = 21,
             values = animation_types
         },
         startPercent = {
             type = "range",
+            width = WeakAuras.normalWidth,
             name = L["Animation Start"],
             min = 0,
             max = 1,
@@ -206,6 +221,7 @@ local function createOptions(id, data)
         },
         endPercent = {
             type = "range",
+            width = WeakAuras.normalWidth,
             name = L["Animation End"],
             min = 0,
             max = 1,
@@ -215,6 +231,7 @@ local function createOptions(id, data)
         },
         frameRate = {
            type = "range",
+           width = WeakAuras.normalWidth,
            name = L["Frame Rate"],
            min = 3,
            max = 120,
@@ -225,6 +242,7 @@ local function createOptions(id, data)
         },
         backgroundPercent = {
             type = "range",
+            width = WeakAuras.normalWidth,
             name = L["Background"],
             min = 0,
             max = 1,
@@ -234,12 +252,14 @@ local function createOptions(id, data)
         },
         foregroundColor = {
             type = "color",
+            width = WeakAuras.normalWidth,
             name = L["Foreground Color"],
             hasAlpha = true,
             order = 30
         },
         backgroundColor = {
             type = "color",
+            width = WeakAuras.normalWidth,
             name = L["Background Color"],
             hasAlpha = true,
             order = 32,
@@ -247,11 +267,13 @@ local function createOptions(id, data)
         },
         inverse = {
             type = "toggle",
+            width = WeakAuras.normalWidth,
             name = L["Inverse"],
             order = 33
         },
         space3 = {
             type = "execute",
+            width = WeakAuras.normalWidth,
             name = "",
             order = 36,
             image = function() return "", 0, 0 end,
