@@ -45,6 +45,8 @@ end
 
 local function createOptions(id, data)
     local options = {
+        __title = L["Stop Motion Settings"],
+        __order = 1,
         foregroundTexture = {
             type = "input",
             width = WeakAuras.normalWidth,
@@ -280,17 +282,10 @@ local function createOptions(id, data)
         },
     };
 
-    if (WeakAuras.PositionOptions) then
-      return {
-        stopmotion = options,
-        position = WeakAuras.PositionOptions(id, data),
-      };
-    end
-
-    -- Legacy code for Versions prior to April 2018
-    options = WeakAuras.AddPositionOptions(options, id, data);
-
-    return options;
+    return {
+      stopmotion = options,
+      position = WeakAuras.PositionOptions(id, data, 2),
+    };
 end
 
 local function createThumbnail(parent, fullCreate)
