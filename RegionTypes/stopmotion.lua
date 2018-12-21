@@ -89,19 +89,12 @@ local function create(parent)
     frame:SetMinResize(1, 1);
 
     local background = frame:CreateTexture(nil, "BACKGROUND");
-    background:SetSnapToPixelGrid(false)
-    background:SetTexelSnappingBias(0)
     frame.background = background;
     background:SetAllPoints(frame);
 
     local foreground = frame:CreateTexture(nil, "ART");
-    foreground:SetSnapToPixelGrid(false)
-    foreground:SetTexelSnappingBias(0)
     frame.foreground = foreground;
     foreground:SetAllPoints(frame);
-
-    frame.duration = 0;
-    frame.expirationTime = math.huge;
 
     WeakAuras.regionPrototype.create(frame);
 
@@ -257,17 +250,13 @@ local function modify(parent, region, data)
 
     region:Color(data.foregroundColor[1], data.foregroundColor[2], data.foregroundColor[3], data.foregroundColor[4]);
 
-    local function UpdateValue(value, total)
-        region.progress = value;
-        region.duration = total;
-    end
-
     function region:PreShow()
       region.startTime = GetTime();
     end
 
     local function onUpdate()
       if (not region.startTime) then return end
+
       WeakAuras.StartProfileAura(region.id);
       WeakAuras.StartProfileSystem("stopmotion")
       local timeSinceStart = (GetTime() - region.startTime);
@@ -308,16 +297,15 @@ local function modify(parent, region, data)
             frame = endFrame;
           end
       elseif (data.animationType == "progress") then
-        if (region.customValueFunc) then
-          UpdateValue(region.customValueFunc(data.trigger));
-        end
-        if (region.mode == "progress") then
-          local progress = region.progress or 0
-          local duration = region.duration ~= 0 and region.duration or 1
-          frame = floor((frames - 1) * progress / duration) + startFrame;
+        if (not region.state) then
+          -- Do nothing
+        elseif (region.state.progressType == "static") then
+          local value = region.state.value or 0
+          local total = region.state.total ~= 0 and region.state.total or 1
+          frame = floor((frames - 1) * value / total) + startFrame;
         else
-          local remaining = region.expirationTime - GetTime();
-          local progress = region.duration > 0 and (1 - (remaining / region.duration)) or 0;
+          local remaining = region.state.expirationTime and (region.state.expirationTime - GetTime()) or 0;
+          local progress = region.state.duration and region.state.duration > 0 and (1 - (remaining / region.state.duration)) or 0;
           frame = floor( (frames - 1) * progress) + startFrame;
         end
       end
@@ -337,34 +325,11 @@ local function modify(parent, region, data)
       WeakAuras.StopProfileAura(region.id);
       WeakAuras.StopProfileSystem("stopmotion")
     end;
-    region:SetScript("OnUpdate", onUpdate);
 
-    function region:SetDurationInfo(duration, expirationTime, customValue)
-        if (not duration or not expirationTime) then return end
-        if(duration <= 0.01 or duration > region.duration or not data.stickyDuration) then
-            region.duration = duration;
-        end
-        region.expirationTime = expirationTime;
-        region.customValueFunc = nil;
+    region.FrameTick = onUpdate;
 
-        if(customValue) then
-            region.mode = "progress";
-            if(type(customValue) == "function") then
-                local value, total = customValue(data.trigger);
-                if(total > 0 and value <= total) then
-                    region.customValueFunc = customValue;
-                else
-                    UpdateValue(duration, expirationTime);
-                end
-                onUpdate();
-            else
-                UpdateValue(duration, expirationTime);
-                onUpdate();
-            end
-        else
-            region.mode = "time";
-            onUpdate();
-        end
+    function region:Update()
+      onUpdate();
     end
 
     function region:SetForegroundDesaturated(b)
