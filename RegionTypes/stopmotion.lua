@@ -89,10 +89,14 @@ local function create(parent)
     frame:SetMinResize(1, 1);
 
     local background = frame:CreateTexture(nil, "BACKGROUND");
+    background:SetSnapToPixelGrid(false)
+    background:SetTexelSnappingBias(0)
     frame.background = background;
     background:SetAllPoints(frame);
 
     local foreground = frame:CreateTexture(nil, "ART");
+    foreground:SetSnapToPixelGrid(false)
+    foreground:SetTexelSnappingBias(0)
     frame.foreground = foreground;
     foreground:SetAllPoints(frame);
 
