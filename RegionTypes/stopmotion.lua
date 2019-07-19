@@ -236,16 +236,30 @@ local function modify(parent, region, data)
     end
 
     function region:Color(r, g, b, a)
-        region.foregroundColor_r = r;
-        region.foregroundColor_g = g;
-        region.foregroundColor_b = b;
-        region.foregroundColor_a = a;
-        region.foreground:SetVertexColor(r, g, b, a);
+      region.color_r = r;
+      region.color_g = g;
+      region.color_b = b;
+      region.color_a = a;
+      if (r or g or b) then
+        a = a or 1;
+      end
+      region.foreground:SetVertexColor(region.color_anim_r or r, region.color_anim_g or g, region.color_anim_b or b, region.color_anim_a or a);
+    end
+
+    function region:ColorAnim(r, g, b, a)
+      region.color_anim_r = r;
+      region.color_anim_g = g;
+      region.color_anim_b = b;
+      region.color_anim_a = a;
+      if (r or g or b) then
+        a = a or 1;
+      end
+      region.foreground:SetVertexColor(r or region.color_r, g or region.color_g, b or region.color_b, a or region.color_a);
     end
 
     function region:GetColor()
-        return region.foregroundColor_r or data.foregroundColor[1], region.foregroundColor_g or data.foregroundColor[2],
-               region.foregroundColor_b or data.foregroundColor[3], region.foregroundColor_a or data.foregroundColor[4];
+      return region.color_r or data.color[1], region.color_g or data.color[2],
+        region.color_b or data.color[3], region.color_a or data.color[4];
     end
 
     region:Color(data.foregroundColor[1], data.foregroundColor[2], data.foregroundColor[3], data.foregroundColor[4]);
