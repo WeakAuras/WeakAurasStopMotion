@@ -288,8 +288,8 @@ local function createOptions(id, data)
     };
 end
 
-local function createThumbnail(parent, fullCreate)
-    local borderframe = CreateFrame("FRAME", nil, parent);
+local function createThumbnail()
+    local borderframe = CreateFrame("FRAME", nil, UIParent);
     borderframe:SetWidth(32);
     borderframe:SetHeight(32);
 
