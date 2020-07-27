@@ -282,10 +282,17 @@ local function createOptions(id, data)
         },
     };
 
-    return {
-      stopmotion = options,
-      position = WeakAuras.PositionOptions(id, data, 2),
-    };
+    if WeakAuras.commonOptions then
+      return {
+        stopmotion = options,
+        position = WeakAuras.commonOptions.PositionOptions(id, data, 2),
+      };
+    else
+      return {
+        stopmotion = options,
+        position = WeakAuras.PositionOptions(id, data, 2),
+      };
+    end
 end
 
 local function createThumbnail()
@@ -306,6 +313,8 @@ local function createThumbnail()
 end
 
 local function modifyThumbnail(parent, region, data, fullModify, size)
+    region:SetParent(parent)
+
     size = size or 30;
     local scale;
     if(data.height > data.width) then
