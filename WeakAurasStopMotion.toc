@@ -1,4 +1,4 @@
-## Interface: 80200
+## Interface: 90001
 ## Title: WeakAuras Stop Motion Textures
 ## Author: Infus
 ## Version: 1.0.0
@@ -8,5 +8,3 @@
 ## Dependencies: WeakAuras, WeakAurasOptions
 
 StopMotionTextures.lua
-RegionTypes\stopmotion.lua
-RegionOptions\stopmotion.lua
