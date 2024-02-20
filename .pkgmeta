@@ -3,6 +3,7 @@ package-as: WeakAurasStopMotion
 ignore:
  - Textures\src
  - README.md
+ - TextureSources
 
 required-dependencies:
  - weakauras-2
