@@ -1,7 +1,6 @@
-## Interface: 100100
+## Interface: 100205
 ## Title: WeakAuras Stop Motion Textures
 ## Author: Infus
-## Version: 1.0.3
 ## IconTexture: Interface\AddOns\WeakAurasStopMotion\icon.blp
 ## Notes: Textures for Stop Motion
 ## X-Category: Interface Enhancements
