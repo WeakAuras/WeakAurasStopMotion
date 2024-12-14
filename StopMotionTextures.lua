@@ -37,55 +37,64 @@ WeakAuras.StopMotion.texture_types.IconOverlays = {
   ["Interface\\AddOns\\WeakAurasStopMotion\\Textures\\IconOverlays\\ArcReactor"] = "ArcReactor",
   ["Interface\\AddOns\\WeakAurasStopMotion\\Textures\\IconOverlays\\Core"] = "Core",
   ["Interface\\AddOns\\WeakAurasStopMotion\\Textures\\IconOverlays\\Energize"] = "Energize",
+  ["Interface\\AddOns\\WeakAurasStopMotion\\Textures\\IconOverlays\\Electric"] = "Electric",
   ["Interface\\AddOns\\WeakAurasStopMotion\\Textures\\IconOverlays\\Fire"] = "Fire",
   ["Interface\\AddOns\\WeakAurasStopMotion\\Textures\\IconOverlays\\Ghostbuster"] = "Ghostbuster",
   ["Interface\\AddOns\\WeakAurasStopMotion\\Textures\\IconOverlays\\Haze"] = "Haze",
+  ["Interface\\AddOns\\WeakAurasStopMotion\\Textures\\IconOverlays\\Heat"] = "Heat",
   ["Interface\\AddOns\\WeakAurasStopMotion\\Textures\\IconOverlays\\Kryptonite"] = "Kryptonite",
   ["Interface\\AddOns\\WeakAurasStopMotion\\Textures\\IconOverlays\\Zap"] = "Zap",
 }
 
 WeakAuras.StopMotion.texture_data["Interface\\AddOns\\WeakAurasStopMotion\\Textures\\IconOverlays\\ArcReactor"] = {
-    ["count"] = 64,
-    ["rows"] = 8,
-    ["columns"] = 8
-  }
-  WeakAuras.StopMotion.texture_data["Interface\\AddOns\\WeakAurasStopMotion\\Textures\\IconOverlays\\Core"] = {
-    ["count"] = 64,
-    ["rows"] = 8,
-    ["columns"] = 8
-  }
-  WeakAuras.StopMotion.texture_data["Interface\\AddOns\\WeakAurasStopMotion\\Textures\\IconOverlays\\Eletric"] = {
-    ["count"] = 64,
-    ["rows"] = 8,
-    ["columns"] = 8
-  }
-  WeakAuras.StopMotion.texture_data["Interface\\AddOns\\WeakAurasStopMotion\\Textures\\IconOverlays\\Energize"] = {
-    ["count"] = 64,
-    ["rows"] = 8,
-    ["columns"] = 8
-  }
-  WeakAuras.StopMotion.texture_data["Interface\\AddOns\\WeakAurasStopMotion\\Textures\\IconOverlays\\Fire"] = {
-    ["count"] = 64,
-    ["rows"] = 8,
-    ["columns"] = 8
-  }
-  WeakAuras.StopMotion.texture_data["Interface\\AddOns\\WeakAurasStopMotion\\Textures\\IconOverlays\\Ghostbuster"] = {
-    ["count"] = 64,
-    ["rows"] = 8,
-    ["columns"] = 8
-  }
-  WeakAuras.StopMotion.texture_data["Interface\\AddOns\\WeakAurasStopMotion\\Textures\\IconOverlays\\Haze"] = {
-    ["count"] = 64,
-    ["rows"] = 8,
-    ["columns"] = 8
-  }
-  WeakAuras.StopMotion.texture_data["Interface\\AddOns\\WeakAurasStopMotion\\Textures\\IconOverlays\\Kryptonite"] = {
-    ["count"] = 64,
-    ["rows"] = 8,
-    ["columns"] = 8
-  }
-  WeakAuras.StopMotion.texture_data["Interface\\AddOns\\WeakAurasStopMotion\\Textures\\IconOverlays\\Zap"] = {
-    ["count"] = 64,
-    ["rows"] = 8,
-    ["columns"] = 8
-  }
+  ["count"] = 64,
+  ["rows"] = 8,
+  ["columns"] = 8
+}
+WeakAuras.StopMotion.texture_data["Interface\\AddOns\\WeakAurasStopMotion\\Textures\\IconOverlays\\Core"] = {
+  ["count"] = 64,
+  ["rows"] = 8,
+  ["columns"] = 8
+}
+WeakAuras.StopMotion.texture_data["Interface\\AddOns\\WeakAurasStopMotion\\Textures\\IconOverlays\\Electric"] = {
+  ["count"] = 60,
+  ["rows"] = 8,
+  ["columns"] = 8
+}
+WeakAuras.StopMotion.texture_data["Interface\\AddOns\\WeakAurasStopMotion\\Textures\\IconOverlays\\Energize"] = {
+  ["count"] = 64,
+  ["rows"] = 8,
+  ["columns"] = 8
+}
+WeakAuras.StopMotion.texture_data["Interface\\AddOns\\WeakAurasStopMotion\\Textures\\IconOverlays\\Fire"] = {
+  ["count"] = 64,
+  ["rows"] = 8,
+  ["columns"] = 8
+}
+WeakAuras.StopMotion.texture_data["Interface\\AddOns\\WeakAurasStopMotion\\Textures\\IconOverlays\\Ghostbuster"] = {
+  ["count"] = 64,
+  ["rows"] = 8,
+  ["columns"] = 8
+}
+WeakAuras.StopMotion.texture_data["Interface\\AddOns\\WeakAurasStopMotion\\Textures\\IconOverlays\\Haze"] = {
+  ["count"] = 64,
+  ["rows"] = 8,
+  ["columns"] = 8
+}
+
+WeakAuras.StopMotion.texture_data["Interface\\AddOns\\WeakAurasStopMotion\\Textures\\IconOverlays\\Heat"] = {
+  ["count"] = 64,
+  ["rows"] = 8,
+  ["columns"] = 8
+}
+
+WeakAuras.StopMotion.texture_data["Interface\\AddOns\\WeakAurasStopMotion\\Textures\\IconOverlays\\Kryptonite"] = {
+  ["count"] = 64,
+  ["rows"] = 8,
+  ["columns"] = 8
+}
+WeakAuras.StopMotion.texture_data["Interface\\AddOns\\WeakAurasStopMotion\\Textures\\IconOverlays\\Zap"] = {
+  ["count"] = 64,
+  ["rows"] = 8,
+  ["columns"] = 8
+}
