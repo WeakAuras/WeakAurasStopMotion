@@ -1,4 +1,5 @@
 ## Interface: 110005
+## Interface-Cata: 40401
 ## Title: WeakAuras Stop Motion Textures
 ## Author: Infus
 ## IconTexture: Interface\AddOns\WeakAurasStopMotion\icon.blp
