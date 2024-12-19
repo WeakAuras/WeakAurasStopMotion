@@ -46,7 +46,8 @@ WeakAuras.StopMotion.texture_data["Interface\\AddOns\\WeakAurasStopMotion\\Textu
 }
 
 local frames64IconOverlays = {
-  "ArcReactor", "Core", "Energize", "Fire", "Frost", "Ghostbuster", "Haze", "Heat", "Kryptonite", "Water", "Zap"
+  "ArcReactor", "Core", "Energize", "Fire", "Frost", "Ghostbuster", "Haze", "Heat", "Kryptonite",
+  "Rainbow", "SimpleOrange", "SimpleOrange2", "SimplePurple2", "Water", "Zap"
 }
 
 local frames64Data = {
