@@ -1,0 +1,10 @@
+## Interface: 20505
+## Title: WeakAuras Stop Motion Textures
+## Author: Infus
+## IconTexture: Interface\AddOns\WeakAurasStopMotion\icon.blp
+## Notes: Textures for Stop Motion
+## X-Category: Interface Enhancements
+## DefaultState: Enabled
+## Dependencies: WeakAuras, WeakAurasOptions
+
+StopMotionTextures.lua
