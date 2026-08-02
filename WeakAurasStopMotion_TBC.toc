@@ -1,3 +1,4 @@
+# WOW_INTERFACE_TARGETS: tbc-test, tbc
 ## Interface: 20505
 ## Title: WeakAuras Stop Motion Textures
 ## Author: Infus

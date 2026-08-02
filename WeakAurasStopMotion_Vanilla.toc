@@ -1,3 +1,4 @@
+# WOW_INTERFACE_TARGETS: vanilla
 ## Interface: 11508
 ## Title: WeakAuras Stop Motion Textures
 ## Author: Infus
