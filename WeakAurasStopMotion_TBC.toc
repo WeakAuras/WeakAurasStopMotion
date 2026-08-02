@@ -1,5 +1,5 @@
 # WOW_INTERFACE_TARGETS: tbc-test, tbc
-## Interface: 20505
+## Interface: 20506
 ## Title: WeakAuras Stop Motion Textures
 ## Author: Infus
 ## IconTexture: Interface\AddOns\WeakAurasStopMotion\icon.blp

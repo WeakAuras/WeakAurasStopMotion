@@ -1,5 +1,5 @@
 # WOW_INTERFACE_TARGETS: mists
-## Interface: 50503, 50504
+## Interface: 50504
 ## Title: WeakAuras Stop Motion Textures
 ## Author: Infus
 ## IconTexture: Interface\AddOns\WeakAurasStopMotion\icon.blp

@@ -1,5 +1,5 @@
 # WOW_INTERFACE_TARGETS: wrath-titan
-## Interface: 30405, 38001
+## Interface: 38002
 ## Title: WeakAuras Stop Motion Textures
 ## Author: Infus
 ## IconTexture: Interface\AddOns\WeakAurasStopMotion\icon.blp

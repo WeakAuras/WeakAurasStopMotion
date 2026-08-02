@@ -1,5 +1,5 @@
 # WOW_INTERFACE_TARGETS: vanilla
-## Interface: 11508
+## Interface: 11509
 ## Title: WeakAuras Stop Motion Textures
 ## Author: Infus
 ## IconTexture: Interface\AddOns\WeakAurasStopMotion\icon.blp
