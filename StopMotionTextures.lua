@@ -78,3 +78,13 @@ for _, key in ipairs(frames64IconOverlays) do
   WeakAuras.StopMotion.texture_types.IconOverlays[file] = key
   WeakAuras.StopMotion.texture_data[file] = frames64Data
 end
+
+WeakAuras.StopMotion.texture_types.Bar = {
+  ["Interface\\AddOns\\WeakAurasStopMotion\\Textures\\Bars\\ArcaneBar"] = "Arcane Bar",
+}
+
+WeakAuras.StopMotion.texture_data["Interface\\AddOns\\WeakAurasStopMotion\\Textures\\Bars\\ArcaneBar"] = {
+  count = 32,
+  rows = 32,
+  columns = 1
+}
